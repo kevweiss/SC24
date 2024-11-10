@@ -12,16 +12,16 @@ For these demos, access the `scinet24` server via SSH:
 This demo showcases vector operations across distributed nodes.
 
 - On scinet24 (GPU node in Ashburn):
-``` python3 /root/SC24/Demos/VectorOperations/sc_demo_vectorOps.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
+``` python3 ./SC24/Demos/VectorOperations/sc_demo_vectorOps.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
 
 - On Voyager (Atlanta):
-``` python3 /root/SC24/Demos/VectorOperations/sc_demo_vectorOps.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
+``` python3 ./SC24/Demos/VectorOperations/sc_demo_vectorOps.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
 
 ### MNIST Demo
 This demo uses the MNIST dataset to demonstrate distributed neural network training.
 
 - On scinet24 (GPU node in Ashburn):
-``` python3 /root/SC24/Demos/MNIST/sc_demo_mnist.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
+``` python3 ./SC24/Demos/MNIST/sc_demo_mnist.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
 
 - On Voyager:
-``` python3 /root/SC24/Demos/MNIST/sc_demo_mnist.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
+``` python3 ./SC24/Demos/MNIST/sc_demo_mnist.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
