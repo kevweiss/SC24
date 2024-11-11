@@ -8,6 +8,10 @@ import torchvision.transforms as transforms
 from torchvision.datasets import MNIST
 from torch.utils.data import DataLoader
 import time
+import warnings
+
+# Suppress FurtureWarning
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Dummy function for synchronization
 def sync_worker():
