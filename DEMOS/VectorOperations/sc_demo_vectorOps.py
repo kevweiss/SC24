@@ -4,6 +4,10 @@ import torch
 import torch.distributed.rpc as rpc
 import logging
 import time
+import warnings
+
+# Suppress FurtureWarning
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 print(torch.__version__)
 
