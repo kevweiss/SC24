@@ -5,13 +5,13 @@ import torch.distributed.rpc as rpc
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from torchvision.datasets import MNIST
+from torchvision.datasets import SVHN
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
 import time
 import warnings
 
-# Suppress FurtureWarning
+# Suppress FutureWarning
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Dummy function for synchronization
@@ -46,9 +46,9 @@ class BasicBlock(nn.Module):
 
 
 class ResNet34(nn.Module):
-    def __init__(self, num_classes=1000):
+    def __init__(self, num_classes=10):  # SVHN has 10 classes (0-9)
         super(ResNet34, self).__init__()
-        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)  # 3 channels for RGB
         self.bn1 = nn.BatchNorm2d(64)
         self.layer1 = self._make_layer(64, 64, 3)
         self.layer2 = self._make_layer(64, 128, 4, stride=2)
@@ -88,7 +88,6 @@ def train_model_on_gpu(dataloader, iterations=1000):
             for epoch in range(iterations):
                 model.train()
                 for i, (data, target) in enumerate(dataloader):
-                    #  data, target = data.view(data.size(0), -1).to(device), target.to(device)
                     data, target = data.to(device), target.to(device)
                     optimizer.zero_grad()
                     output = model(data)
@@ -97,7 +96,7 @@ def train_model_on_gpu(dataloader, iterations=1000):
                     optimizer.step()
 
                 # For demonstration purposes, we calculate a dummy accuracy and send the update to rank 1
-                accuracy = 100 * (1 - loss.item())
+                accuracy = 100 * (1 - loss.item())  # Dummy accuracy calculation
                 rpc.rpc_async("worker1", log_epoch_update, args=(epoch + 1, accuracy))
                 print(f"Iteration {epoch+1}/{iterations}, Loss: {loss.item()}, Accuracy: {accuracy:.2f}%")
 
@@ -127,9 +126,12 @@ def run_worker(rank, world_size, master_addr, master_port, ifname):
 
     if rank == 0:
         # GPU server performs model training
-        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
-        mnist_dataset = MNIST(root='./data', train=True, download=True, transform=transform)
-        dataloader = DataLoader(mnist_dataset, batch_size=64, shuffle=True)
+        transform = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  # Normalize for RGB channels
+        ])
+        svhn_dataset = SVHN(root='./data', split='train', download=True, transform=transform)
+        dataloader = DataLoader(svhn_dataset, batch_size=64, shuffle=True)
 
         result = train_model_on_gpu(dataloader)
         rpc.rpc_sync(to="worker1", func=print, args=(f"Training result from rank 0 (GPU): {result}",))
