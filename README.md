@@ -17,7 +17,7 @@ This demo showcases vector operations across distributed nodes.
 - On Voyager (Atlanta):
 ``` python3 ./SC24/DEMOS/VectorOperations/sc_demo_vectorOps.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
 
-### MNIST Demo
+### MNIST/ResNet Demo
 This demo uses the MNIST dataset to demonstrate distributed neural network training.
 
 - On scinet24 (GPU node in Ashburn):
