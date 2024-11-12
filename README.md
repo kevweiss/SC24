@@ -1,8 +1,8 @@
 # SC24
-Repo contains code for SC'24 Demonstrations
-
-
+This repository contains demonstration code for the Supercomputing 2024 conference in Atlanta. The demonstrations showcase PyTorch's Remote Procedure Call (RPC) framework, facilitating various GPU-intensive tasks by leveraging distributed computing across nodes.
 ## Accessing scinet24
+
+
 For these demos, access the `scinet24` server via SSH:
 ``` ssh root@2620:118:5007:1002:5c24:a:0:730 ```
 
