@@ -17,7 +17,7 @@ This demo showcases vector operations across distributed nodes.
 - On Voyager (Atlanta):
 ``` python3 ./SC24/DEMOS/VectorOperations/sc_demo_vectorOps.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
 
-### MNIST/ResNet Demo
+### MNIST Demo
 This demo uses the MNIST dataset to demonstrate distributed neural network training.
 
 - On scinet24 (GPU node in Ashburn):
@@ -25,3 +25,19 @@ This demo uses the MNIST dataset to demonstrate distributed neural network train
 
 - On Voyager:
 ``` python3 ./SC24/DEMOS/MNIST/sc_demo_mnist.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
+
+### ResNet Demo
+
+This demon trains ResNet34, a 34-layer convolutional neural network known for its "skip connections," which help mitigate vanishing gradients, making it effective on deep networks. The SVHN (Street View House Numbers) dataset is used, featuring real-world images of digits (0–9) from street signs, ideal for digit recognition tasks. With 600,000 labeled digits, SVHN challenges models to classify digits with varied lighting, angles, and backgrounds, making it an excellent test for ResNet34’s ability to generalize in complex visual environments.
+
+- On scinet24 (GPU node in Ashburn):
+``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
+
+
+- On Voyager:
+``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
+
+
+
+
+
