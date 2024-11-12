@@ -88,7 +88,8 @@ def train_model_on_gpu(dataloader, iterations=1000):
             for epoch in range(iterations):
                 model.train()
                 for i, (data, target) in enumerate(dataloader):
-                    data, target = data.view(data.size(0), -1).to(device), target.to(device)
+                    #  data, target = data.view(data.size(0), -1).to(device), target.to(device)
+                    data, target = data.to(device), target.to(device)
                     optimizer.zero_grad()
                     output = model(data)
                     loss = loss_fn(output, target)
