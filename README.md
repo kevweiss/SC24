@@ -28,7 +28,7 @@ This demo uses the MNIST dataset to demonstrate distributed neural network train
 
 ### ResNet Demo
 
-This demon trains ResNet34, a 34-layer convolutional neural network known for its "skip connections," which help mitigate vanishing gradients, making it effective on deep networks. The SVHN (Street View House Numbers) dataset is used, featuring real-world images of digits (0–9) from street signs, ideal for digit recognition tasks. With 600,000 labeled digits, SVHN challenges models to classify digits with varied lighting, angles, and backgrounds, making it an excellent test for ResNet34’s ability to generalize in complex visual environments.
+This demo trains ResNet34, a 34-layer convolutional neural network known for its "skip connections," which help mitigate vanishing gradients, making it effective on deep networks. The SVHN (Street View House Numbers) dataset is used, featuring real-world images of digits (0–9) from street signs, ideal for digit recognition tasks. With 600,000 labeled digits, SVHN challenges models to classify digits with varied lighting, angles, and backgrounds, making it an excellent test for ResNet34’s ability to generalize in complex visual environments.
 
 - On scinet24 (GPU node in Ashburn):
 ``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
