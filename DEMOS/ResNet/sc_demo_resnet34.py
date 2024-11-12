@@ -48,7 +48,7 @@ class BasicBlock(nn.Module):
 class ResNet34(nn.Module):
     def __init__(self, num_classes=1000):
         super(ResNet34, self).__init__()
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.layer1 = self._make_layer(64, 64, 3)
         self.layer2 = self._make_layer(64, 128, 4, stride=2)
