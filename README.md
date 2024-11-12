@@ -18,7 +18,7 @@ This demo showcases vector operations across distributed nodes.
 ``` python3 ./SC24/DEMOS/VectorOperations/sc_demo_vectorOps.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
 
 ### MNIST Demo
-This demo uses the MNIST dataset to demonstrate distributed neural network training.
+This demonstration trains `EnhancedNet`, a fully connected neural network with batch normalization and dropout layers, on the MNIST dataset. MNIST contains 70,000 grayscale images of handwritten digits (0–9), each 28x28 pixels, making it a standard dataset for image classification tasks. The `EnhancedNet` model first flattens the input images to a 784-dimensional vector, then processes it through a series of fully connected layers with batch normalization and dropout. This architecture helps reduce overfitting and accelerates training by stabilizing input distributions, making it effective for classifying handwritten digits in MNIST.
 
 - On scinet24 (GPU node in Ashburn):
 ``` python3 ./SC24/DEMOS/MNIST/sc_demo_mnist.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
