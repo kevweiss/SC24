@@ -84,6 +84,8 @@ def train_model_on_gpu(dataloader, iterations=1000):
         try:
             for epoch in range(iterations):
                 model.train()
+                correct = 0
+                total = 0
                 for i, (data, target) in enumerate(dataloader):
                     data, target = data.to(device), target.to(device)
                     optimizer.zero_grad()
@@ -92,8 +94,12 @@ def train_model_on_gpu(dataloader, iterations=1000):
                     loss.backward()
                     optimizer.step()
 
-                # For demonstration purposes, we calculate a dummy accuracy and send the update to rank 1
-                accuracy = 100 * (1 - loss.item())  # Dummy accuracy calculation
+                    # Calculate number of correct predictions
+                    _, predicted = torch.max(output, 1)
+                    total += target.size(0)
+                    correct += (predicted == target).sum().item()
+
+                accuracy = 100 * correct / total  # Correct accuracy calculation
                 rpc.rpc_async("worker1", log_epoch_update, args=(epoch + 1, accuracy))
                 print(f"Iteration {epoch+1}/{iterations}, Loss: {loss.item()}, Accuracy: {accuracy:.2f}%")
 
