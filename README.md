@@ -39,13 +39,13 @@ This demo trains ResNet18 and ResNet34. ResNet is a convolutional neural network
 - On Voyager:
 ``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet18.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
 
-- On scinet24 (GPU node in Ashburn):
-``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
-
 #### ResNet34
 
 - On Voyager:
 ``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 1 --master_addr 162.250.137.149 --ifname eno2 ```
+
+- On scinet24 (GPU node in Ashburn):
+``` python3 ./SC24/DEMOS/ResNet/sc_demo_resnet34.py --rank 0 --master_addr 162.250.137.149 --ifname enp5s0f1 ```
 
 
 
