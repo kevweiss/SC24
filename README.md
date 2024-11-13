@@ -28,7 +28,7 @@ This demonstration trains `EnhancedNet`, a fully connected neural network with b
 
 ### ResNet Demo
 
-This demo trains ResNet18 and ResNet34. ResNet is a convolutional neural networks known for it's "skip connections," which help mitigate vanishing gradients, making it effective on deep networks. ResNet18 is trained on the CIFAR-10 dataset, which consists of 60,000 32x32 color images across 10 classes, ideal for evaluating model performance on relatively simple image classification tasks. ResNet34 is trained on the CIFAR-100 dataset, which contains 60,000 32x32 color images across 100 classes, providing a more challenging test for generalization with a wider range of object categories. Both datasets feature varied backgrounds, lighting, and object orientations, making them an excellent test for ResNet34's ability to generalize in complex visual environments.
+This demo trains ResNet18 and ResNet34. ResNet is a convolutional neural networks known for it's "skip connections," which help mitigate vanishing gradients, making it effective on deep networks. ResNet18 is trained on the CIFAR-10 dataset, which consists of 60,000 32x32 color images across 10 classes, ideal for evaluating model performance on relatively simple image classification tasks. ResNet34 is trained on the CIFAR-100 dataset, which contains 60,000 32x32 color images across 100 classes, providing a more challenging test for generalization with a wider range of object categories. Both datasets feature varied backgrounds, lighting, and object orientations, making them an excellent test for ResNet's ability to generalize in complex visual environments.
 
 
 #### ResNet18
