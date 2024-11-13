@@ -5,7 +5,7 @@ import torch.distributed.rpc as rpc
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from torchvision.datasets import SVHN
+from torchvision.datasets import CIFAR100
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
 import time
@@ -21,7 +21,6 @@ def sync_worker():
 # Function to log epoch updates on rank 1
 def log_epoch_update(epoch, accuracy):
     print(f"Worker1: Received epoch {epoch} update with accuracy: {accuracy:.2f}%")
-
 
 class BasicBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
@@ -44,9 +43,8 @@ class BasicBlock(nn.Module):
         out += self.shortcut(x)
         return F.relu(out)
 
-
 class ResNet34(nn.Module):
-    def __init__(self, num_classes=10):  # SVHN has 10 classes (0-9)
+    def __init__(self, num_classes=100):  # CIFAR-100 has 100 classes
         super(ResNet34, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)  # 3 channels for RGB
         self.bn1 = nn.BatchNorm2d(64)
@@ -74,7 +72,6 @@ class ResNet34(nn.Module):
         x = torch.flatten(x, 1)
         x = self.fc(x)
         return x
-
 
 # Model training function with updated learning rate and model architecture
 def train_model_on_gpu(dataloader, iterations=1000):
@@ -127,11 +124,13 @@ def run_worker(rank, world_size, master_addr, master_port, ifname):
     if rank == 0:
         # GPU server performs model training
         transform = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomCrop(32, padding=4),
             transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  # Normalize for RGB channels
+            transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761))  # CIFAR-100 normalization
         ])
-        svhn_dataset = SVHN(root='./data', split='train', download=True, transform=transform)
-        dataloader = DataLoader(svhn_dataset, batch_size=64, shuffle=True)
+        cifar100_dataset = CIFAR100(root='./data', train=True, download=True, transform=transform)
+        dataloader = DataLoader(cifar100_dataset, batch_size=64, shuffle=True)
 
         result = train_model_on_gpu(dataloader)
         rpc.rpc_sync(to="worker1", func=print, args=(f"Training result from rank 0 (GPU): {result}",))
